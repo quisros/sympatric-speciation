@@ -128,25 +128,26 @@ def propagate(n, f_birds, m_birds):
 
     return f_offspring, m_offspring
 
+def plot_fname(i):
+    return './tempdir/dist' + str(i) + '.png'
+
 def plot_beaksizes(n, beakszs, i):
 
-    plt.hist(beakszs, color = 'blue', bins = int(n/5))
-    plt.xlim([1.5,6.5])
+    plt.hist(beakszs, color = 'blue', bins = np.linspace(2.5,5.5,31))
+    plt.xlim([2.5,5.5])
     plt.ylim([0,n])
-    filename = './tempdir/dist' + str(i) + '.png'
 
-    plt.savefig(filename)
+    plt.savefig(plot_fname(i))
     plt.close()
 
 def make_gif(num_generations):
 
     with imageio.get_writer('mygif.gif', mode='I') as writer:
         for i in range(num_generations):
-            filename = './tempdir/dist' + str(i) + '.png'
-            image = imageio.imread(filename)
+            image = imageio.imread(plot_fname(i))
             writer.append_data(image)
 
-            os.remove(filename)
+            os.remove(plot_fname(i))
 
 def plot_mean_var(means, vars, num_generations):
 
@@ -166,15 +167,15 @@ def get_beaksizes(n, f_birds, m_birds):
 
 def evolution(n, f_birds, m_birds):
 
-    num_generations = 200
+    num_generations = 50
     means, vars = [], []
 
     for i in range(num_generations):
 
         beakszs = get_beaksizes(n, f_birds, m_birds)
-        mu, sig = np.mean(beakszs), np.var(beakszs)
+        mu, sig2 = np.mean(beakszs), np.var(beakszs)
         means.append(mu)
-        vars.append(sig)
+        vars.append(sig2)
         plot_beaksizes(n, beakszs, i)
 
         f_birds, m_birds = propagate(n, f_birds, m_birds)
@@ -183,7 +184,7 @@ def evolution(n, f_birds, m_birds):
     plot_mean_var(means, vars, num_generations)
 
 
-n_loci, n_popl = 20, 100
+n_loci, n_popl = 20, 1000
 fem_alls, mal_alls = generate_alleles(n_loci)
 Fs, Ms = initialise_population(n_popl, fem_alls, mal_alls)
 evolution(n_popl, Fs, Ms)

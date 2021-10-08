@@ -90,5 +90,5 @@ def mate_loci(l1, l2):
 	return new_l
 
 def normal_dist(x , mean , sd):
-    prob_density = np.exp(-0.5*((x-mean)/sd)**2)/(sd*np.sqrt(2*np.pi))
-    return prob_density
+	prob_density = np.exp(-0.5*(((x-mean)/sd)**2))/(sd*np.sqrt(2*np.pi))
+	return prob_density
