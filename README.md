@@ -2,5 +2,6 @@
 
 Details to be added soon! Till then, have a look at these random gifs:
 
-![run1](run1_distribution.gif)
-![run2](run2_distribution.gif)
+Run 1                          |  Run 2
+:-----------------------------:|:-------------------------:
+![run1](figures/run1_dist.gif)|  ![run2](figures/run2_dist.gif)
